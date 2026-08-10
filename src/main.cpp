@@ -7,7 +7,7 @@
 TFT_eSPI tft = TFT_eSPI();
 
 unsigned long lastUpdate = 0;
-const long interval = 5000; // ms
+constexpr unsigned long UPDATE_INTERVAL_MS = 5000;
 
 #pragma region Helper metode
 void prepareScreen()
@@ -110,11 +110,11 @@ void loop()
 {
     unsigned long currentMillis = millis();
 
-    if (currentMillis - lastUpdate < interval)
+    if (currentMillis - lastUpdate < UPDATE_INTERVAL_MS)
     {
         return;
     }
-    
+
     lastUpdate = currentMillis;
 
     if (WiFi.status() != WL_CONNECTED)
