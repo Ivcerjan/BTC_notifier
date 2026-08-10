@@ -106,7 +106,7 @@ void loop()
     }
 
     String payload = http.getString();
-    StaticJsonDocument<200> doc;
+    JsonDocument doc;
     DeserializationError error = deserializeJson(doc, payload);
 
     Serial.println(payload);
