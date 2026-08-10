@@ -23,7 +23,7 @@ void prepareScreen()
     tft.setRotation(1);
     tft.setTextColor(TFT_WHITE, TFT_BLACK);
     tft.setTextSize(2);
-    showMessage("Spajam na WiFi...");
+    showMessage("Connecting WiFi...");
 }
 
 void connectWifi()
@@ -36,9 +36,9 @@ void connectWifi()
         Serial.print(".");
     }
 
-    Serial.println("\nWiFi spojen!");
+    Serial.println("\nWiFi connected!");
 
-    showMessage("Povezano!");
+    showMessage("Connected!");
 
     delay(1000);
 }
@@ -53,18 +53,17 @@ void printPrice(float price)
     tft.setTextSize(3);
     tft.setCursor(10, 50);
     tft.setTextColor(TFT_GREEN, TFT_BLACK);
-    tft.print("E");
     tft.println(price, 2);
 
-    Serial.print("BTC cijena: ");
+    Serial.print("BTC price: ");
     Serial.println(price);
 }
 
 void printHttpError(int httpCode)
 {
-    Serial.print("HTTP greska: ");
+    Serial.print("HTTP error: ");
     Serial.println(httpCode);
-    showMessage("API greska!");
+    showMessage("API error!");
 }
 
 bool fetchBitcoinPrice(float &outPrice)
@@ -90,7 +89,7 @@ bool fetchBitcoinPrice(float &outPrice)
 
     if (error)
     {
-        Serial.println("Greska pri parsiranju JSON-a");
+        Serial.println("Error parsing JSON");
         return false;
     }
 
@@ -120,7 +119,7 @@ void loop()
 
     if (WiFi.status() != WL_CONNECTED)
     {
-        showMessage("WiFi greska!");
+        showMessage("WiFi error!");
         return;
     }
 
