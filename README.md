@@ -8,3 +8,5 @@ lib_deps =
 
 [platformio]
 description = Inicijalni testni projekt spajanja na wifi, konzumiranja free API-ja, prikaza na vanjskom displayu
+
+**Preduvjet za kreiranje lokalnog image-a i uploadanje esp32 image na mikrokontroler je Secrets.h fajl sa ispravnim podacima.**
