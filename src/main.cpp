@@ -40,6 +40,13 @@ void connectWifi()
     delay(1000);
 }
 
+void showError(const char *message)
+{
+    tft.fillScreen(TFT_BLACK);
+    tft.setCursor(10, 10);
+    tft.println(message);
+}
+
 void printPrice(float price)
 {
     tft.fillScreen(TFT_BLACK);
@@ -61,9 +68,7 @@ void printHttpError(int httpCode)
 {
     Serial.print("HTTP greska: ");
     Serial.println(httpCode);
-    tft.fillScreen(TFT_BLACK);
-    tft.setCursor(10, 10);
-    tft.println("API greska!");
+    showError("API greska!");
 }
 
 bool fetchBitcoinPrice(float &outPrice)
@@ -119,9 +124,7 @@ void loop()
 
     if (WiFi.status() != WL_CONNECTED)
     {
-        tft.fillScreen(TFT_BLACK);
-        tft.setCursor(10, 10);
-        tft.println("WiFi greska!");
+        showError("WiFi greska!");
         return;
     }
 
