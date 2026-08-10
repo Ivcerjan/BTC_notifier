@@ -10,15 +10,20 @@ unsigned long lastUpdate = 0;
 constexpr unsigned long UPDATE_INTERVAL_MS = 5000;
 
 #pragma region Helper metode
+void showMessage(const char *message)
+{
+    tft.fillScreen(TFT_BLACK);
+    tft.setCursor(10, 10);
+    tft.println(message);
+}
+
 void prepareScreen()
 {
     tft.init();
     tft.setRotation(1);
-    tft.fillScreen(TFT_BLACK);
     tft.setTextColor(TFT_WHITE, TFT_BLACK);
     tft.setTextSize(2);
-    tft.setCursor(10, 10);
-    tft.println("Spajam na WiFi...");
+    showMessage("Spajam na WiFi...");
 }
 
 void connectWifi()
@@ -33,18 +38,9 @@ void connectWifi()
 
     Serial.println("\nWiFi spojen!");
 
-    tft.fillScreen(TFT_BLACK);
-    tft.setCursor(10, 10);
-    tft.println("Povezano!");
+    showMessage("Povezano!");
 
     delay(1000);
-}
-
-void showError(const char *message)
-{
-    tft.fillScreen(TFT_BLACK);
-    tft.setCursor(10, 10);
-    tft.println(message);
 }
 
 void printPrice(float price)
@@ -68,7 +64,7 @@ void printHttpError(int httpCode)
 {
     Serial.print("HTTP greska: ");
     Serial.println(httpCode);
-    showError("API greska!");
+    showMessage("API greska!");
 }
 
 bool fetchBitcoinPrice(float &outPrice)
@@ -124,7 +120,7 @@ void loop()
 
     if (WiFi.status() != WL_CONNECTED)
     {
-        showError("WiFi greska!");
+        showMessage("WiFi greska!");
         return;
     }
 
