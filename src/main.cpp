@@ -65,6 +65,37 @@ void printHttpError(int httpCode)
     tft.setCursor(10, 10);
     tft.println("API greska!");
 }
+
+bool fetchBitcoinPrice(float &outPrice)
+{
+    HTTPClient http;
+    http.begin(COINGECKO_API_URL);
+    int httpCode = http.GET();
+
+    if (httpCode != HTTP_CODE_OK)
+    {
+        printHttpError(httpCode);
+        http.end();
+        return false;
+    }
+
+    String payload = http.getString();
+    http.end();
+
+    Serial.println(payload);
+
+    JsonDocument doc;
+    DeserializationError error = deserializeJson(doc, payload);
+
+    if (error)
+    {
+        Serial.println("Greska pri parsiranju JSON-a");
+        return false;
+    }
+
+    outPrice = doc["bitcoin"]["eur"];
+    return true;
+}
 #pragma endregion
 
 void setup()
@@ -83,7 +114,7 @@ void loop()
     {
         return;
     }
-
+    
     lastUpdate = currentMillis;
 
     if (WiFi.status() != WL_CONNECTED)
@@ -94,32 +125,9 @@ void loop()
         return;
     }
 
-    HTTPClient http;
-    http.begin(COINGECKO_API_URL);
-    int httpCode = http.GET();
-
-    if (httpCode != HTTP_CODE_OK)
+    float price;
+    if (fetchBitcoinPrice(price))
     {
-        printHttpError(httpCode);
-        http.end();
-        return;
+        printPrice(price);
     }
-
-    String payload = http.getString();
-    JsonDocument doc;
-    DeserializationError error = deserializeJson(doc, payload);
-
-    Serial.println(payload);
-
-    if (error)
-    {
-        Serial.println("Greska pri parsiranju JSON-a");
-
-        http.end();
-        return;
-    }
-
-    printPrice(doc["bitcoin"]["eur"]);
-
-    http.end();
 }
