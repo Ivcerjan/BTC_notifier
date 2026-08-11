@@ -75,9 +75,9 @@ BTC_Notifier/
 
 ## Roadmap
 
-- [ ] S&P 500 price tracking alongside BTC
+- [ ] Alternative crypto tracking alongside BTC
 - [ ] Button-based toggle between assets
-- [ ] Price change indicator (color-coded)
+- [ ] Price change indicator (colour-coded)
 - [ ] Wiring diagram
 
 ## License
