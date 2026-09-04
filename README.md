@@ -75,10 +75,11 @@ BTC_Notifier/
 
 ## Roadmap
 
+- [ ] Wiring diagram
 - [ ] Alternative crypto tracking alongside BTC
+- [ ] Backoff/retry strategy for failed API calls
 - [ ] Button-based toggle between assets
 - [ ] Price change indicator (colour-coded)
-- [ ] Wiring diagram
 
 ## License
 
