@@ -33,7 +33,7 @@ A small ESP32-based device that fetches the live Bitcoin price from the CoinGeck
 
 1. Clone the repository
 ```bash
-   git clone https://github.com/<your-username>/BTC_Notifier.git
+   git clone https://github.com/Ivcerjan/BTC_Notifier.git
    cd BTC_Notifier
 ```
 
