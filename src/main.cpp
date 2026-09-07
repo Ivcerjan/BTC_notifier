@@ -3,6 +3,7 @@
 #include <ArduinoJson.h>
 #include <TFT_eSPI.h>
 #include "Secrets.h"
+#include "BitcoinParser.h"
 
 TFT_eSPI tft = TFT_eSPI();
 
@@ -84,17 +85,7 @@ bool fetchBitcoinPrice(float &outPrice)
 
     Serial.println(payload);
 
-    JsonDocument doc;
-    DeserializationError error = deserializeJson(doc, payload);
-
-    if (error)
-    {
-        Serial.println("Error parsing JSON");
-        return false;
-    }
-
-    outPrice = doc["bitcoin"]["eur"];
-    return true;
+    return parseBitcoinPrice(payload, outPrice);
 }
 #pragma endregion
 
