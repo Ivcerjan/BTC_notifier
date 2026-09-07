@@ -8,7 +8,7 @@
 TFT_eSPI tft = TFT_eSPI();
 
 unsigned long lastUpdate = 0;
-constexpr unsigned long UPDATE_INTERVAL_MS = 5000;
+constexpr unsigned long UPDATE_INTERVAL_MS = 10000;
 
 #pragma region Helper metode
 void showMessage(const char *message)
