@@ -13,6 +13,10 @@ A small ESP32-based device that fetches the live Bitcoin price from the CoinGeck
 - Non-blocking update loop using `millis()` timing
 - WiFi credentials kept out of source control via a local secrets file
 
+Example of terminal output when uploaded to device and monitored:
+
+<img width="875" height="326" alt="image" src="https://github.com/user-attachments/assets/16d6fdde-9e81-41a1-baff-d88c05713fb4" />
+
 ## Hardware
 
 | Component | Model |
