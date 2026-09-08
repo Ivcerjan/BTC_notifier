@@ -21,7 +21,7 @@ Example of terminal output when uploaded to device and monitored:
 
 | Component | Model |
 |---|---|
-| Microcontroller | ESP32 Board |
+| Microcontroller | ESP32 Board (I use Devkit V1) |
 | Display | 1.8" TFT LED display (I use GERUI 128x160 SPI with ST7735 driver) |
 
 > Wiring diagram coming soon.
