@@ -4,11 +4,12 @@
 #include <TFT_eSPI.h>
 #include "Secrets.h"
 #include "BitcoinParser.h"
+#include "Config.h"
 
 TFT_eSPI tft = TFT_eSPI();
 
 unsigned long lastUpdate = 0;
-constexpr unsigned long UPDATE_INTERVAL_MS = 10000;
+uint8_t consecutiveFailures = 0;
 
 #pragma region Helper metode
 void showMessage(const char *message)
@@ -27,21 +28,30 @@ void prepareScreen()
     showMessage("Connecting WiFi...");
 }
 
-void connectWifi()
+bool connectWifi()
 {
     WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 
+    unsigned long start = millis();
+
     while (WiFi.status() != WL_CONNECTED)
     {
+        if (millis() - start > WIFI_CONNECT_TIMEOUT_MS)
+        {
+            Serial.println("\nWiFi connect timed out!");
+            showMessage("WiFi timeout!");
+            return false;
+        }
+
         delay(500);
         Serial.print(".");
     }
 
     Serial.println("\nWiFi connected!");
-
     showMessage("Connected!");
-
     delay(1000);
+
+    return true;
 }
 
 void printPrice(float price)
@@ -69,7 +79,18 @@ void printHttpError(int httpCode)
 
 bool fetchBitcoinPrice(float &outPrice)
 {
+    if (USE_MOCK_DATA)
+    {
+        outPrice = MOCK_BTC_PRICE;
+        if (VERBOSE_LOGGING)
+        {
+            Serial.println("Using mock BTC price");
+        }
+        return true;
+    }
+
     HTTPClient http;
+    http.setTimeout(HTTP_TIMEOUT_MS);
     http.begin(COINGECKO_API_URL);
     int httpCode = http.GET();
 
@@ -83,7 +104,10 @@ bool fetchBitcoinPrice(float &outPrice)
     String payload = http.getString();
     http.end();
 
-    Serial.println(payload);
+    if (VERBOSE_LOGGING)
+    {
+        Serial.println(payload);
+    }
 
     return parseBitcoinPrice(payload, outPrice);
 }
@@ -94,7 +118,10 @@ void setup()
     Serial.begin(115200);
 
     prepareScreen();
-    connectWifi();
+
+    if (!connectWifi())
+    {
+    }
 }
 
 void loop()
@@ -118,5 +145,17 @@ void loop()
     if (fetchBitcoinPrice(price))
     {
         printPrice(price);
+        consecutiveFailures = 0;
+    }
+    else
+    {
+        consecutiveFailures++;
+
+        if (consecutiveFailures >= MAX_FETCH_RETRIES)
+        {
+            showMessage("Persistent API errors");
+        }
+
+        delay(RETRY_BACKOFF_MS);
     }
 }
