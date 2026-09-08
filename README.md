@@ -21,8 +21,8 @@ Example of terminal output when uploaded to device and monitored:
 
 | Component | Model |
 |---|---|
-| Microcontroller | ESP32 DevKit V1 |
-| Display | GERUI 1.8" TFT, 128x160, ST7735 driver, SPI |
+| Microcontroller | ESP32 Board |
+| Display | 1.8" TFT LED display (I use GERUI 128x160 SPI with ST7735 driver) |
 
 > Wiring diagram coming soon.
 
@@ -37,7 +37,7 @@ Example of terminal output when uploaded to device and monitored:
 
 1. Clone the repository
 ```bash
-   git clone https://github.com/Ivcerjan/BTC_Notifier.git
+   git clone https://github.com/Ivcerjan/BTC_notifier.git
    cd BTC_Notifier
 ```
 
@@ -56,6 +56,8 @@ Example of terminal output when uploaded to device and monitored:
 4. Build and upload:
 ```bash
    pio run --target upload
+
+   or just use the PlatformIO extension for VSCode, cannot recommend it enough
 ```
 
 5. Open the serial monitor to watch connection and price logs:
