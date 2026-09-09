@@ -70,12 +70,19 @@ Example of terminal output when uploaded to device and monitored:
 ```
 BTC_Notifier/
 ├── include/
+│   └── BitcoinParser.h     # Excluded reused method for deserialization of API response
+│   └── Config.h            # High level configuration, update intervals, timeouts, mock flags
 │   ├── Secrets.example.h   # Template for WiFi credentials & API URL
 │   └── Secrets.h           # Your actual credentials (gitignored, not committed)
 ├── src/
-│   └── main.cpp             # Main application logic
-├── platformio.ini           # PlatformIO project configuration
-└── README.md
+│   └── main.cpp            # Main application logic
+├── test/
+│   └── test_main.cpp       # Prebuild tests for parsing, missing fields, malformed JSON
+├── platformio.ini          # PlatformIO project configuration
+├── README.md
+├── .gitignore
+└── .vscode
+    └── extensions.json     # PIO recommendation, unwanted arduino, etc
 ```
 
 
