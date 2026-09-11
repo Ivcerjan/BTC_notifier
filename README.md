@@ -78,8 +78,8 @@ Example of terminal output when uploaded to device and monitored:
 ```
 BTC_Notifier/
 ├── include/
-│   └── BitcoinParser.h     # Excluded reused method for deserialization of API response
-│   └── Config.h            # High level configuration, update intervals, timeouts, mock flags
+│   ├── BitcoinParser.h     # Excluded reused method for deserialization of API response
+│   ├── Config.h            # High level configuration, update intervals, timeouts, mock flags
 │   ├── Secrets.example.h   # Template for WiFi credentials & API URL
 │   └── Secrets.h           # Your actual credentials (gitignored, not committed)
 ├── src/
