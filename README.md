@@ -24,7 +24,15 @@ Example of terminal output when uploaded to device and monitored:
 | Microcontroller | ESP32 Board (I use Devkit V1) |
 | Display | 1.8" TFT LED display (I use GERUI 128x160 SPI with ST7735 driver) |
 
-> Wiring diagram coming soon.
+> Temporary unformatted pin combination: 
+> VCC→3V3,
+> GND→GND,
+> CS→GPIO5,
+> RST→GPIO4,
+> DC→GPIO2,
+> SDA→GPIO23,
+> SCK→GPIO18,
+> LED→3V3
 
 ## Getting Started
 
