@@ -98,10 +98,8 @@ BTC_Notifier/
 
 ## Roadmap
 
-- [ ] Wiring diagram
 - [ ] Alternative crypto tracking alongside BTC
 - [ ] Button-based toggle between assets
-- [ ] Price change indicator (colour-coded)
 
 ## License
 
