@@ -40,6 +40,11 @@ Example of terminal output when uploaded to device and monitored:
 
 > Wiring uses the ESP32's VSPI bus (`SCK=18`, `MOSI=23`). Any free GPIO works for `CS`/`RES`/`DC` as long as it matches the `TFT_eSPI` build flags in `platformio.ini`. Reference: [ESP32-WROOM-32 datasheet](https://www.mouser.com/datasheet/2/891/esp-wroom-32_datasheet_en-1223836.pdf).
 
+Price diplayed with a progress bar underneath:
+
+<img width="387" height="284" alt="image" src="https://github.com/user-attachments/assets/6b265f16-3801-402e-899b-e89322eaf17e" />
+
+
 ## Getting Started
 
 ### Prerequisites
