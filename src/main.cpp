@@ -11,12 +11,19 @@ TFT_eSPI tft = TFT_eSPI();
 unsigned long lastUpdate = 0;
 uint8_t consecutiveFailures = 0;
 
+#define PROGRESS_BAR_Y      115 
+#define PROGRESS_BAR_HEIGHT 6
+#define PROGRESS_BAR_MARGIN 10
+
+int lastProgressWidth = -1;
+
 #pragma region Helper metode
 void showMessage(const char *message)
 {
     tft.fillScreen(TFT_BLACK);
     tft.setCursor(10, 10);
     tft.println(message);
+    lastProgressWidth = -1;
 }
 
 void prepareScreen()
@@ -26,6 +33,22 @@ void prepareScreen()
     tft.setTextColor(TFT_WHITE, TFT_BLACK);
     tft.setTextSize(2);
     showMessage("Connecting WiFi...");
+}
+
+void drawProgressBar(unsigned long elapsed, unsigned long total)
+{
+    int barWidth = tft.width() - (PROGRESS_BAR_MARGIN * 2);
+    int fillWidth = (int)((float)elapsed / total * barWidth);
+
+    if (fillWidth == lastProgressWidth)
+    {
+        return;
+    }
+    lastProgressWidth = fillWidth;
+
+    tft.drawRect(PROGRESS_BAR_MARGIN, PROGRESS_BAR_Y, barWidth, PROGRESS_BAR_HEIGHT, TFT_DARKGREY);
+
+    tft.fillRect(PROGRESS_BAR_MARGIN + 1, PROGRESS_BAR_Y + 1, fillWidth - 2, PROGRESS_BAR_HEIGHT - 2, TFT_GREEN);
 }
 
 bool connectWifi()
@@ -59,12 +82,14 @@ void printPrice(float price)
     tft.fillScreen(TFT_BLACK);
     tft.setTextSize(2);
     tft.setCursor(10, 10);
-    tft.println("Bitcoin (BTC)");
+    tft.println("Bitcoin BTC");
 
     tft.setTextSize(3);
     tft.setCursor(10, 50);
     tft.setTextColor(TFT_GREEN, TFT_BLACK);
     tft.println(price, 2);
+
+    lastProgressWidth = -1; // force redraw of bar next tick
 
     Serial.print("BTC price: ");
     Serial.println(price);
@@ -127,9 +152,17 @@ void setup()
 void loop()
 {
     unsigned long currentMillis = millis();
+    unsigned long elapsed = currentMillis - lastUpdate;
 
-    if (currentMillis - lastUpdate < UPDATE_INTERVAL_MS)
+    // Update progress bar every tick, regardless of fetch timing
+    if (WiFi.status() == WL_CONNECTED)
     {
+        drawProgressBar(elapsed, UPDATE_INTERVAL_MS);
+    }
+
+    if (elapsed < UPDATE_INTERVAL_MS)
+    {
+        delay(50); // small tick so the bar animates smoothly without hammering the CPU
         return;
     }
 
