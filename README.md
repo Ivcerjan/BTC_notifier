@@ -1,10 +1,15 @@
 # BTC Notifier
 
-A small ESP32-based device that fetches the live Bitcoin price from the CoinGecko API and displays it on a TFT screen, refreshing every few seconds.
-
 ![Platform](https://img.shields.io/badge/platform-ESP32-blue)
 ![Framework](https://img.shields.io/badge/framework-Arduino-teal)
 ![Build](https://img.shields.io/badge/build-PlatformIO-orange)
+![Environment](https://img.shields.io/badge/environment-VSCode%20%2B%20PlatformIO-teal)
+
+## Quick Look
+
+- **What it does:** Displays live Bitcoin price on a TFT screen, updating automatically
+- **Hardware:** ESP32 + 1.8" SPI display, wired on a breadboard
+- **Software:** Built with VSCode + PlatformIO, ~5 min setup
 
 ## Features
 
