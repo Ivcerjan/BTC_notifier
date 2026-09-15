@@ -92,12 +92,6 @@ BTC_Notifier/
     └── extensions.json     # PIO recommendation, unwanted arduino, etc
 ```
 
-
-## Roadmap
-
-- [ ] Alternative crypto tracking alongside BTC
-- [ ] Button-based toggle between assets
-
 ## License
 
 MIT
